@@ -1,0 +1,255 @@
+body{
+  background: #f5f5f5 ;
+  scroll-behavior: smooth;
+overflow: none;
+}
+
+.container{
+  background: #f5f5f5 ;
+  width: 100%;
+}
+
+.loginPage {
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 120%;
+}
+
+.loginForm {
+    background-color: rgba(1, 32, 93, 0.6);
+    color: white;
+}
+
+ul>li :hover {
+    background-color: rgb(154, 147, 147);
+    align-items: start;
+}
+li span:hover {
+   background: none !important
+}
+
+ul>li button :hover {
+    background:none !important
+}
+
+
+.employee_image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.emp_det_image {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+}
+
+body{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+.card {
+  background: #E0C9CB;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border-radius: 10px;
+  }
+  
+  .card:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.15); 
+    cursor: pointer;
+}
+
+
+  
+  .span:hover  {
+    color: white;
+    z-index: 1;
+  }
+
+  .add{
+    border-radius: 20px;
+
+  }
+  .addedit{
+    gap: 7px;
+  }
+  .addedit:hover {
+    background-color: #0d6efd; 
+    color: white !important; 
+    border: #0d6efd
+  }
+  
+  .addedit:hover svg {
+    fill: white !important; 
+  }
+  
+
+   .addedit{
+    background-color: white;
+    color: rgb(39, 38, 38) !important;
+    font-weight: 600;
+border: none !important;
+  }
+  
+  .addedit:hover{
+    background-color: rgb(39, 38, 38) ;
+    color: white;
+    display: block;
+  }
+
+  
+
+  @media (max-width: 760px) {
+    .btn span {
+      display: block;
+    }
+  
+    .btn:hover span {
+      display: block;
+    }
+  }
+  
+  @media (max-width: 440px) {
+    .btn span {
+      display: block;
+    }
+  }
+  
+  .login{
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .sidebar{
+    text-transform: uppercase;
+  }
+
+  .btn-info{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+
+  }
+
+  .btn-info:hover{
+    transform: scale(1.01);
+  }
+  
+  hr {
+    border-width: 2px; 
+  }
+
+  .col-12{
+    color: white;
+    font-weight: 600;
+  }
+  .col-12 input{
+    /* border-radius: 20px; */
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  }
+  .col-12 input:focus{
+    outline: none !important
+   }
+
+  .forms{
+    background: #E0C9CB;
+
+    backdrop-filter: blur(25px);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+
+  }
+.form-control{
+      box-shadow: none;
+}
+
+  input:focus{
+    outline: none !important;
+    box-shadow: none;
+  }
+
+  *:focus {
+    outline: none;
+}
+  
+.btn1{
+  background-color: rgb(39, 38, 38) !important;
+border: none;
+transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+.btn1:hover{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  background-color: rgb(50, 49, 49) !important;
+  transform: scale(1.05);
+border: none;
+}
+
+
+.btn-info {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  padding: 0.9rem 2rem;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 0.05rem;
+  font-weight: 700;
+  font-size: 17px;
+  border-radius: 500px;
+  overflow: hidden;
+  background: #f5f5f5 !important ;
+  color: ghostwhite !important;
+ }
+ 
+ .btn-info span {
+  position: relative;
+  z-index: 10;
+  transition: color 0.4s;
+ }
+ 
+ .btn-info:hover span {
+  color: black !important;
+ }
+ 
+ .btn-info::before,
+ .btn-info::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+ }
+ 
+ .btn-info::before {
+  content: "";
+  background: #000;
+  width: 120%;
+  left: -10%;
+  transform: skew(30deg);
+  transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+ }
+ 
+ .btn-info:hover::before {
+  transform: translate3d(100%, 0, 0);
+ }
+
+ #password{
+  
+  justify-content: center;
+  align-items: center;
+  top: auto;
+  right: 30px;
+  color: black;
+  
+ }
+ 
