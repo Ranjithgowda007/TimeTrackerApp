@@ -1,14 +1,29 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, uses } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { EmployeeContext } from "../Contexts/EmployeeContext";
 import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { useState } from "react";
+
 
 const EmployeeList = () => {
   const navigate = useNavigate();
-  const { employees, setEmployees } = useContext(EmployeeContext);
+  const { employees, setEmployees, isUpdated, setIsUpdated } = useContext(EmployeeContext);
+  const location= useLocation();
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  console.log(employees);
+  
+
+ 
+  useEffect(() => {
+    if (isUpdated && !showSuccessMessage) {
+      toast.success("Employee details updated successfully");
+      setIsUpdated(false);
+      setShowSuccessMessage(true);
+    }
+  }, [isUpdated, showSuccessMessage]);
 
   // if (!Array.isArray(employees)) {
   //   // If employees is not an array, return a message indicating the issue
@@ -20,30 +35,12 @@ const EmployeeList = () => {
   };
 
   const handleDeleteEmployee = (employeeId, index) => {
-    Swal.fire({
-      icon: "warning",
-      title: "Are you sure!",
-      text: "You won't be able to revert this!",
-      showCancelButton: true,
-      ConfirmButtonText: "Yes, delete it!",
-      cacelButtonText: "No, cancel!",
-    }).then((result) => {
-      if (result.value) {
-        const updatedEmployees = employees.filter(
-          (emp) => emp.employee_Id !== employeeId
-        );
-        setEmployees(updatedEmployees);
-        localStorage.setItem("employees", JSON.stringify(updatedEmployees));
+    // Show a confirmation toast
 
-        Swal.fire({
-          icon: "success",
-          title: "Deleted!",
-          text: `${employees[index].name}'s data has been Added`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
+    const updatedEmployees = employees.filter(emp => emp.employee_Id !== employeeId);
+          setEmployees(updatedEmployees);
+          localStorage.setItem("employees", JSON.stringify(updatedEmployees));
+          setIsUpdated(true)
   };
 
   const handleEditEmployee = (employeeId) => {
@@ -109,6 +106,7 @@ const EmployeeList = () => {
             </div>
           ))
         )}
+     
       </div>
     </div>
   );

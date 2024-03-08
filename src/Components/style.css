@@ -252,4 +252,31 @@ border: none;
   color: black;
   
  }
+
+
+ .custom-toast-container {
+  position: absolute;
+  top: 12px; 
+  left: 58%; 
+  transform: translateX(-50%);
+}
+
+.custom-toast-body {
+  /* Add custom styles for the toast body if needed */
+}
+
+
+@media (max-width: 752px) {
+  /* .custom-toast-container {
+    position: static;
+    top: 0;
+    left: auto; 
+    transform: none;
+    width: auto;
+  } */
+}
+
+
+
+
  
