@@ -62,34 +62,21 @@ const EmployForm = ({ isEdit }) => {
     //   return toast.error("All fields are required");
     // }
 
-   
+    if (isEdit) { 
 
- 
-
-
-// if (emailcheck) {
-//   toast.error("Email is already in use");
-// }
-
-
-    
-  
-    
-    
-    
-
-    if (isEdit) {
+      const employeeIndex = employees.findIndex((emp) => emp.employee_Id === id);
+      const filteredEmployees= employees.filter((emp, index)=> employees.indexOf(emp) !== employeeIndex )
       
-     
-     const emailcheck= employees
-     .filter(emp => emp.employee_Id !== employee.employee_Id) 
-    .some(emp => emp.email === employee.email); 
-     const idcheck =  employees.some(emp => emp.employee_Id === employee.employee_Id && emp.employee_Id !== id);
-     if(emailcheck && employee.email !== ""){
-       return toast.error("Email is already in use");
-     } else if (idcheck && employee.employee_Id !== "") {
+      const idcheck= filteredEmployees.some(emp =>  emp.employee_Id === employee.employee_Id)
+      const emailcheck = filteredEmployees.some(emp => emp.email === employee.email)
+
+  if (emailcheck && employee.email !== "") {
+      return toast.error("Email is already in use");
+  } else
+   if (idcheck && employee.employee_Id !== "") {
       return toast.error("Employee ID is already in use");
-    }
+  }
+  
       editEmployee(id, employee);
       navigate("/employlist");
     } else{
@@ -109,21 +96,15 @@ const EmployForm = ({ isEdit }) => {
         joining_date: "",
         employee_role: "",
         password: "",
-      });
+        });
+        return toast.success(`${employee.name}'s data has been added`)
     }
-
-    
-    
-    
-    
     
   };
   
- 
-  
   return (
     <div className="d-flex justify-content-center align-items-center mt-3 ">
-\      <div className="p-3 rounded w-sm-75 w-sm-75 w-lg-75 mt-5 border forms">
+     <div className="p-3 rounded w-sm-75 w-sm-75 w-lg-75 mt-5 border forms">
         <h3 className="text-center my-2">{isEdit ? "Edit" : "Add"} Employee</h3><hr  className="text-black"/>
         <form className="row justify-content-center my-3" onSubmit={handleSubmit}>
           <div className="row">

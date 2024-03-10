@@ -1,46 +1,62 @@
-import React, { useContext, useEffect, uses } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { EmployeeContext } from "../Contexts/EmployeeContext";
+import { AuthContext } from "../Contexts/LoginContext";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { useState } from "react";
-
 
 const EmployeeList = () => {
   const navigate = useNavigate();
   const { employees, setEmployees, isUpdated, setIsUpdated } = useContext(EmployeeContext);
-  const location= useLocation();
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const { login } = useContext(AuthContext);
+  const location = useLocation();
 
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
- 
+  // useEffect(() => {
+  //   setIsLoggedIn(true);
+  //   login(); 
+  //   setIsLoggedIn(false)// Call the login function from AuthContext
+  // }, [isLoggedIn]);
+
   useEffect(() => {
-    if (isUpdated && !showSuccessMessage) {
+    if (isUpdated) {
       toast.success("Employee details updated successfully");
-      setIsUpdated(false);
-      setShowSuccessMessage(true);
+      setIsUpdated(false); // Reset the isUpdated flag
     }
-  }, [isUpdated, showSuccessMessage]);
+  }, [isUpdated, setIsUpdated]);
 
-  // if (!Array.isArray(employees)) {
-  //   // If employees is not an array, return a message indicating the issue
-  //   return <p>Error: Employees data is not available.</p>;
-  // }
+  useEffect(() => {
+    if (isLoggedIn) {
+      toast.success("Logged in successfully");
+    }
+  }, [isLoggedIn]);
 
   const handleAddEmployee = () => {
     navigate("/employlist/addemploy");
   };
 
   const handleDeleteEmployee = (employeeId, index) => {
-    // Show a confirmation toast
-
-    const updatedEmployees = employees.filter(emp => emp.employee_Id !== employeeId);
-          setEmployees(updatedEmployees);
-          localStorage.setItem("employees", JSON.stringify(updatedEmployees));
-          setIsUpdated(true)
+    // Display confirmation dialog
+    Swal.fire({
+      title: 'Are you sure?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Delete',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // User confirmed deletion, proceed with deletion
+        const updatedEmployees = employees.filter(emp => emp.employee_Id !== employeeId);
+        setEmployees(updatedEmployees);
+        localStorage.setItem("employees", JSON.stringify(updatedEmployees));
+        setIsUpdated(true);
+        toast.success("Employee deleted successfully");
+      }
+    });
   };
 
   const handleEditEmployee = (employeeId) => {
@@ -48,7 +64,7 @@ const EmployeeList = () => {
   };
 
   return (
-    <div className="container  login">
+    <div className="container login">
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3 px-4 pt-3 py-3">
         <h1>EMPLOYEE LIST</h1>
         <button
@@ -72,7 +88,7 @@ const EmployeeList = () => {
                 id={index}
               >
                 <div className="card-body d-flex flex-column">
-                  <h5 className="card-title"> {employee.name}</h5>{" "}
+                  <h5 className="card-title">{employee.name}</h5>
                   <hr className="mx-0 my-1" />
                   <p className="card-text">
                     <strong>ROLE:</strong> {employee.employee_role}
@@ -85,19 +101,17 @@ const EmployeeList = () => {
                   </p>
                   <div className="mt-auto d-flex justify-content-lg-between justify-content-md-between justify-content-between align-items-center">
                     <button
-                      className="d-flex justify-content-between align-items-center btn btn-outline-dark position-relative  btn-sm text-primary border-2 addedit"
+                      className="d-flex justify-content-between align-items-center btn btn-outline-dark position-relative btn-sm text-primary border-2 addedit"
                       onClick={() => handleEditEmployee(employee.employee_Id)}
                     >
                       <span className="d-md-inline d-lg-inline">EDIT</span>{" "}
                       <FaEdit className="ml-2" />
                     </button>
                     <button
-                      className=" d-flex justify-content-between align-items-center btn btn-outline-dark position-relative btn-sm border-2 rounded-pill addedit text-primary"
-                      onClick={() =>
-                        handleDeleteEmployee(employee.employee_Id, index)
-                      }
+                      className="d-flex justify-content-between align-items-center btn btn-outline-dark position-relative btn-sm border-2 rounded-pill addedit text-primary"
+                      onClick={() => handleDeleteEmployee(employee.employee_Id, index)}
                     >
-                      <span className=" d-md-inline d-lg-inline">DELETE</span>{" "}
+                      <span className="d-md-inline d-lg-inline">DELETE</span>{" "}
                       <FaTrash className="ml-2" />
                     </button>
                   </div>
@@ -106,7 +120,6 @@ const EmployeeList = () => {
             </div>
           ))
         )}
-     
       </div>
     </div>
   );
