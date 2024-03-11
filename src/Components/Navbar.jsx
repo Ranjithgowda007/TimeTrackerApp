@@ -2,22 +2,25 @@ import React, { useContext, useEffect } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Contexts/LoginContext";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Navbar = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
-  // console.log(isLoggedIn);
   const navigate = useNavigate();
+  useEffect(()=>{
+   
+  })
 
   useEffect(() => {
     if (!isLoggedIn) {
       navigate("/Login");
+      
     }
   }, [isLoggedIn, navigate]);
 
   const handleLogout = () => {
     logout();
     navigate("/login");
-    console.log(isLoggedIn);
   };
 
   return (

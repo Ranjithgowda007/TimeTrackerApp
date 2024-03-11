@@ -10,12 +10,15 @@ import "./Components/style.css";
 import Dashboard from "./Components/Dashboard";
 import EmployForm from "./Components/EmployForm";
 import ErrorPage from "./Components/ErrorPage";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
     <Router>
       <AuthProvider>
         <EmployeeProvider>
+        <ToastContainer />
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route exact path="/" element={<Navbar />}>
@@ -35,6 +38,7 @@ const App = () => {
               <Route path="*" element={<ErrorPage />} />
             </Route>
           </Routes>
+          
         </EmployeeProvider>
       </AuthProvider>
     </Router>

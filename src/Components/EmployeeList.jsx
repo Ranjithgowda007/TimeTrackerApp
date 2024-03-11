@@ -1,19 +1,25 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { EmployeeContext } from "../Contexts/EmployeeContext";
+import { AuthContext } from "../Contexts/LoginContext";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const EmployeeList = () => {
   const navigate = useNavigate();
-  const { employees, setEmployees } = useContext(EmployeeContext);
+  const { employees, setEmployees, isUpdated, setIsUpdated } = useContext(EmployeeContext);
+  const { login } = useContext(AuthContext);
+  const location = useLocation();
 
-  console.log(employees);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // if (!Array.isArray(employees)) {
-  //   // If employees is not an array, return a message indicating the issue
-  //   return <p>Error: Employees data is not available.</p>;
-  // }
+  useEffect(() => {
+    if (isLoggedIn) {
+      toast.success("Logged in successfully");
+    }
+  }, [isLoggedIn]);
 
   const handleAddEmployee = () => {
     navigate("/employlist/addemploy");
@@ -21,27 +27,19 @@ const EmployeeList = () => {
 
   const handleDeleteEmployee = (employeeId, index) => {
     Swal.fire({
-      icon: "warning",
-      title: "Are you sure!",
-      text: "You won't be able to revert this!",
+      title: 'Are you sure?',
+      icon: 'warning',
       showCancelButton: true,
-      ConfirmButtonText: "Yes, delete it!",
-      cacelButtonText: "No, cancel!",
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Delete',
     }).then((result) => {
-      if (result.value) {
-        const updatedEmployees = employees.filter(
-          (emp) => emp.employee_Id !== employeeId
-        );
+      if (result.isConfirmed) {
+        const updatedEmployees = employees.filter(emp => emp.employee_Id !== employeeId);
         setEmployees(updatedEmployees);
         localStorage.setItem("employees", JSON.stringify(updatedEmployees));
-
-        Swal.fire({
-          icon: "success",
-          title: "Deleted!",
-          text: `${employees[index].name}'s data has been Added`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        setIsUpdated(true);
+        toast.success("Employee deleted successfully");
       }
     });
   };
@@ -51,7 +49,7 @@ const EmployeeList = () => {
   };
 
   return (
-    <div className="container  login">
+    <div className="container login">
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3 px-4 pt-3 py-3">
         <h1>EMPLOYEE LIST</h1>
         <button
@@ -75,7 +73,7 @@ const EmployeeList = () => {
                 id={index}
               >
                 <div className="card-body d-flex flex-column">
-                  <h5 className="card-title"> {employee.name}</h5>{" "}
+                  <h5 className="card-title">{employee.name}</h5>
                   <hr className="mx-0 my-1" />
                   <p className="card-text">
                     <strong>ROLE:</strong> {employee.employee_role}
@@ -88,19 +86,17 @@ const EmployeeList = () => {
                   </p>
                   <div className="mt-auto d-flex justify-content-lg-between justify-content-md-between justify-content-between align-items-center">
                     <button
-                      className="d-flex justify-content-between align-items-center btn btn-outline-dark position-relative  btn-sm text-primary border-2 addedit"
+                      className="d-flex justify-content-between align-items-center btn btn-outline-dark position-relative btn-sm text-primary border-2 addedit"
                       onClick={() => handleEditEmployee(employee.employee_Id)}
                     >
                       <span className="d-md-inline d-lg-inline">EDIT</span>{" "}
                       <FaEdit className="ml-2" />
                     </button>
                     <button
-                      className=" d-flex justify-content-between align-items-center btn btn-outline-dark position-relative btn-sm border-2 rounded-pill addedit text-primary"
-                      onClick={() =>
-                        handleDeleteEmployee(employee.employee_Id, index)
-                      }
+                      className="d-flex justify-content-between align-items-center btn btn-outline-dark position-relative btn-sm border-2 rounded-pill addedit text-primary"
+                      onClick={() => handleDeleteEmployee(employee.employee_Id, index)}
                     >
-                      <span className=" d-md-inline d-lg-inline">DELETE</span>{" "}
+                      <span className="d-md-inline d-lg-inline">DELETE</span>{" "}
                       <FaTrash className="ml-2" />
                     </button>
                   </div>

@@ -1,21 +1,17 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { EmployeeContext } from "../Contexts/EmployeeContext";
 import { useNavigate, useParams } from "react-router-dom";
-import Swal from "sweetalert2";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const EmployForm = ({ isEdit }) => {
-  const { addEmployee, editEmployee, employees } = useContext(EmployeeContext);
+  const { addEmployee, editEmployee, employees, isUpdated, setIsUpdated, emailexits, setemailexists } = useContext(EmployeeContext);
   const navigate = useNavigate();
   const { id } = useParams();
   const textInput = useRef(null);
   const [onfocused, setOnfocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
-  const handlechange = (e) => {
-    setEmployee({ ...employee, password: e.target.value });
-          const value = e.target.value;
-    value.length ? setOnfocused(true) : setOnfocused(false);
-  };
 
   const [employee, setEmployee] = useState({
     name: "",
@@ -25,6 +21,11 @@ const EmployForm = ({ isEdit }) => {
     employee_role: "",
     password: "",
   });
+  const handlechange = (e) => {
+    setEmployee({ ...employee, password: e.target.value });
+    const value = e.target.value;
+    value.length ? setOnfocused(true) : setOnfocused(false);
+  };
 
   useEffect(() => {
     if (isEdit) {
@@ -36,41 +37,59 @@ const EmployForm = ({ isEdit }) => {
   }, [employees, id, isEdit]);
 
   useEffect(() => {
-    textInput.current.focus();
-  }, [isEdit]);
+    if(textInput.current){
+
+      textInput.current.focus();
+    }
+  }, [isEdit, textInput]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!employee.name) {
-      return Swal.fire({
-        icon: "error",
-        title: "Error!",
-        text: "All fields are required",
-        showConfirmButton: true,
-      });
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(employee.email)) {
+      return toast.error("Please enter a valid email address");
+    }
+  
+    const idRegex = /^[a-zA-Z0-9]+$/;
+    if (!idRegex.test(employee.employee_Id)) {
+      return toast.error("Employee ID can only contain letters and numbers");
     }
 
-    if (isEdit) {
-      
-      editEmployee(id, employee);
-      Swal.fire({
-        icon: "success",
-        title: "Updated!",
-        text: "Employee details updated successfully",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      navigate("/employlist");
-    } else {
+    if (!employee.name || !employee.email || !employee.employee_Id || !employee.joining_date || !employee.employee_role || !employee.password) {
+      return toast.error("All fields are required");
+    }
 
+    if (isEdit) { 
+
+      const employeeIndex = employees.findIndex((emp) => emp.employee_Id === id);
+      const filteredEmployees= employees.filter((emp, index)=> employees.indexOf(emp) !== employeeIndex )
+      
+      const idcheck= filteredEmployees.some(emp =>  emp.employee_Id === employee.employee_Id)
+      const emailcheck = filteredEmployees.some(emp => emp.email === employee.email)
+
+  if (emailcheck && employee.email !== "") {
+      return toast.error("Email is already in use");
+  } else
+   if (idcheck && employee.employee_Id !== "") {
+      return toast.error("Employee ID is already in use");
+  }
+  
+      editEmployee(id, employee);
+      navigate("/employlist");
+      
+  
+      
+    } else{
+
+      const emailcheck= employees.some(emp=> emp.email === employee.email)
+      const idcheck = employees.some(emp=> emp.employee_Id === employee.employee_Id)
+      if(emailcheck){
+        return toast.error("Email is already in use");
+      } else if(idcheck ){
+        return toast.error("employee_Id is already in use");
+      }
       addEmployee(employee);
-      Swal.fire({
-        icon: "success",
-        title: "Added!",
-        text: `${employee.name}'s data has been Added`,
-        showConfirmButton: false,
-        timer: 1500,
-      });
       setEmployee({
         name: "",
         email: "",
@@ -78,13 +97,15 @@ const EmployForm = ({ isEdit }) => {
         joining_date: "",
         employee_role: "",
         password: "",
-      });
+        });
+        return toast.success(`${employee.name}'s data has been added`)
     }
+    
   };
-
+  
   return (
     <div className="d-flex justify-content-center align-items-center mt-3 ">
-      <div className="p-3 rounded w-sm-75 w-sm-75 w-lg-75 mt-5 border forms">
+     <div className="p-3 rounded w-sm-75 w-sm-75 w-lg-75 mt-5 border forms">
         <h3 className="text-center my-2">{isEdit ? "Edit" : "Add"} Employee</h3><hr  className="text-black"/>
         <form className="row justify-content-center my-3" onSubmit={handleSubmit}>
           <div className="row">
@@ -197,7 +218,7 @@ const EmployForm = ({ isEdit }) => {
                      "bi bi-eye-slash-fill" : "bi bi-eye-fill"
                   }
                   onClick={() => setShowPassword(!showPassword)}
-                  style={{ cursor: "pointer", paddingRight:'12px', fontSize: '17px', paddingTop: '35px'}}
+                  style={{ cursor: "pointer", paddingRight:'12px', fontSize: '17px', paddingTop: '39px'}}
                 ></i>
                  )}
                </div>
