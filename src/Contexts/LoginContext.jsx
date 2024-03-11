@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setIsLoggedIn(false);
     sessionStorage.removeItem('isLoggedIn');
-
+    toast.warning("You have been logged out");
   };
 
   useEffect(() => {

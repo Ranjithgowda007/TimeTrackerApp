@@ -3,6 +3,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Contexts/LoginContext";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import 'react-toastify/dist/ReactToastify.css';
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
@@ -17,6 +18,23 @@ const Navbar = () => {
       
     }
   }, [isLoggedIn, navigate]);
+
+  // const handleLogout = () => {
+  //   Swal.fire({
+  //     title: 'Logout',
+  //     text: 'Are you sure you want to logout?',
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#d33',
+  //     cancelButtonColor: '#3085d6',
+  //     confirmButtonText: 'Yes, logout'
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       logout(); // Call the logout function from AuthContext
+  //     }
+  //   });
+  // };
+
 
   const handleLogout = () => {
     logout();
