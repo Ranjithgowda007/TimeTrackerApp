@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { EmployeeContext } from "../Contexts/EmployeeContext";
 import { AuthContext } from "../Contexts/LoginContext";
 import Swal from "sweetalert2";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 const EmployeeList = () => {
@@ -14,19 +14,6 @@ const EmployeeList = () => {
   const location = useLocation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // useEffect(() => {
-  //   setIsLoggedIn(true);
-  //   login(); 
-  //   setIsLoggedIn(false)// Call the login function from AuthContext
-  // }, [isLoggedIn]);
-
-  useEffect(() => {
-    if (isUpdated) {
-      toast.success("Employee details updated successfully");
-      setIsUpdated(false); // Reset the isUpdated flag
-    }
-  }, [isUpdated, setIsUpdated]);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -39,7 +26,6 @@ const EmployeeList = () => {
   };
 
   const handleDeleteEmployee = (employeeId, index) => {
-    // Display confirmation dialog
     Swal.fire({
       title: 'Are you sure?',
       icon: 'warning',
@@ -49,7 +35,6 @@ const EmployeeList = () => {
       confirmButtonText: 'Delete',
     }).then((result) => {
       if (result.isConfirmed) {
-        // User confirmed deletion, proceed with deletion
         const updatedEmployees = employees.filter(emp => emp.employee_Id !== employeeId);
         setEmployees(updatedEmployees);
         localStorage.setItem("employees", JSON.stringify(updatedEmployees));

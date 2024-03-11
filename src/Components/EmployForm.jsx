@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { EmployeeContext } from "../Contexts/EmployeeContext";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 const EmployForm = ({ isEdit }) => {
   const { addEmployee, editEmployee, employees, isUpdated, setIsUpdated, emailexits, setemailexists } = useContext(EmployeeContext);
-  const [emailErrorShown, setEmailErrorShown] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
   const textInput = useRef(null);
@@ -27,7 +26,6 @@ const EmployForm = ({ isEdit }) => {
     const value = e.target.value;
     value.length ? setOnfocused(true) : setOnfocused(false);
   };
-
 
   useEffect(() => {
     if (isEdit) {
@@ -58,9 +56,9 @@ const EmployForm = ({ isEdit }) => {
       return toast.error("Employee ID can only contain letters and numbers");
     }
 
-    // if (!employee.name || !employee.email || !employee.employee_Id || !employee.joining_date || !employee.employee_role || !employee.password) {
-    //   return toast.error("All fields are required");
-    // }
+    if (!employee.name || !employee.email || !employee.employee_Id || !employee.joining_date || !employee.employee_role || !employee.password) {
+      return toast.error("All fields are required");
+    }
 
     if (isEdit) { 
 
@@ -79,6 +77,9 @@ const EmployForm = ({ isEdit }) => {
   
       editEmployee(id, employee);
       navigate("/employlist");
+      
+  
+      
     } else{
 
       const emailcheck= employees.some(emp=> emp.email === employee.email)

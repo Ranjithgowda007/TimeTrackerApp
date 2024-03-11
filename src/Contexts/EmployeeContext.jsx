@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import React, { createContext, useState, useEffect } from 'react';
 import { employeelist } from '../Components/Data/Employ';
 export const EmployeeContext = createContext();
@@ -6,6 +8,7 @@ const EmployeeProvider = (props) => {
   const [employees, setEmployees] = useState([]);
   const [isUpdated, setIsUpdated] = useState(false);
   const [emailexits, setemailexits] = useState(false)
+
   
   useEffect(() => {
     const storedEmployees = JSON.parse(localStorage.getItem('employees'));
@@ -42,6 +45,7 @@ const EmployeeProvider = (props) => {
 
       if(employee !== updatedEmployees[employeeIndex]){
         setIsUpdated(true);
+        toast.success(`${employee.name} details updated successfully`);
       }
 
       updatedEmployees[employeeIndex] = { ...updatedEmployees[employeeIndex], ...employee };
