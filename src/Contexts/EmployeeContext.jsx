@@ -10,9 +10,12 @@ const EmployeeProvider = (props) => {
   const [emailexits, setemailexits] = useState(false)
 
   
-  useEffect(() => {
+  useEffect(() => {   
     const storedEmployees = JSON.parse(localStorage.getItem('employees'));
-    if (Array.isArray(storedEmployees)) {
+    console.log(employeelist);
+    console.log(storedEmployees);
+    
+    if (Array.isArray(storedEmployees) && storedEmployees.length > 0) {
       setEmployees(storedEmployees);
     } else if (employees.length === 0) { 
       setEmployees(employeelist);

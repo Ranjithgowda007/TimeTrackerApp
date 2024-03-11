@@ -12,6 +12,7 @@ const EmployeeList = () => {
   const { employees, setEmployees, isUpdated, setIsUpdated } = useContext(EmployeeContext);
   const { login } = useContext(AuthContext);
   const location = useLocation();
+  console.log(employees)
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
