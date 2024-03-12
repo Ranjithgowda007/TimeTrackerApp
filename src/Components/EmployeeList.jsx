@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { EmployeeContext } from "../Contexts/EmployeeContext";
