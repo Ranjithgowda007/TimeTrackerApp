@@ -19,35 +19,30 @@ const Navbar = () => {
     }
   }, [isLoggedIn, navigate]);
 
-  // const handleLogout = () => {
-  //   Swal.fire({
-  //     title: 'Logout',
-  //     text: 'Are you sure you want to logout?',
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#d33',
-  //     cancelButtonColor: '#3085d6',
-  //     confirmButtonText: 'Yes, logout'
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       logout(); // Call the logout function from AuthContext
-  //     }
-  //   });
-  // };
-
-
   const handleLogout = () => {
-    logout();
-    navigate("/login");
+    Swal.fire({
+      title: 'Logout',
+      text: 'Are you sure you want to logout?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, logout'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logout(); // Call the logout function from AuthContext
+      }
+    });
   };
 
+
   return (
-    <div>
+    <div className="">
       {isLoggedIn && (
-        <div className="container-fluid login">
+        <div className="container-fluid login loginform">
           <div className="row vh-100">
-            <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark sidebar">
-              <div className="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100 sidebar">
+            <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 sidebar">
+              <div className="d-flex flex-column align-items-center align-items-sm-start px-2 pt-2 text-white min-vh-100">
                 <Link
                   to="/"
                   className="d-flex align-items-center pb-3 mb-md-1 mt-md-3 me-md-auto text-white text-decoration-none ms-4"

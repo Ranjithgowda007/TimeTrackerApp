@@ -31,7 +31,7 @@ const Login = () => {
   };
 
   return (
-    <div className="body1 w-100 d-flex justify-content-center align-items-center">
+    <div className="body1 w-100 d-flex justify-content-center align-items-center vh-100">
       <div className="box1 d-flex align-items-center justify-content-center">
         <div className="container1 d-flex flex-column text-center text-white">
           <div className="text-warning">{error && error}</div>

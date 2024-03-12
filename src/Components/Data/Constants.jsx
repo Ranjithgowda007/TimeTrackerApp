@@ -1,0 +1,1 @@
+export const PROFILE_URL = "https://sm.askmen.com/askmen_in/article/f/facebook-p/facebook-profile-picture-affects-chances-of-gettin_fr3n.jpg"

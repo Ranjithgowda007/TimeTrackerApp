@@ -104,9 +104,9 @@ const EmployForm = ({ isEdit }) => {
   };
   
   return (
-    <div className="d-flex justify-content-center align-items-center mt-3 ">
-     <div className="p-3 rounded w-sm-75 w-sm-75 w-lg-75 mt-5 border forms">
-        <h3 className="text-center my-2">{isEdit ? "Edit" : "Add"} Employee</h3><hr  className="text-black"/>
+    <div className="d-flex justify-content-center align-items-center h-100 w-100 empform">
+     <div className="p-3 rounded w-75 mt-5 border forms">
+        <h3 className="text-center my-2 text-white">{isEdit ? "Edit" : "Add"} Employee</h3><hr  className="text-black"/>
         <form className="row justify-content-center my-3" onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-sm-12 col-md-12 col-lg-6 col-12">
@@ -117,7 +117,7 @@ const EmployForm = ({ isEdit }) => {
                 <input
                   ref={textInput}
                   type="text"
-                  className="form-control rounded-pill"
+                  className="form-control input rounded-pill"
                   id="inputName"
                   placeholder="EMPLOYEE NAME"
                   value={employee.name}
@@ -132,7 +132,7 @@ const EmployForm = ({ isEdit }) => {
                 </label>
                 <input
                   type="email"
-                  className="form-control rounded-pill"
+                  className="form-control input rounded-pill"
                   id="inputEmail4"
                   placeholder="COMPANY EMAIL ID"
                   autoComplete="off"
@@ -148,7 +148,7 @@ const EmployForm = ({ isEdit }) => {
                 </label>
                 <input
                   type="text"
-                  className="form-control rounded-pill"
+                  className="form-control input rounded-pill"
                   id="employeeid"
                   placeholder="EMPLOY ID"
                   autoComplete="off"
@@ -166,7 +166,7 @@ const EmployForm = ({ isEdit }) => {
                 </label>
                 <input
                   type="date"
-                  className="form-control rounded-pill"
+                  className="form-control input rounded-pill"
                   id="joiningDate"
                   placeholder="JOINING DATE"
                   autoComplete="off"
@@ -183,7 +183,7 @@ const EmployForm = ({ isEdit }) => {
                 </label>
                 <input
                   type="text"
-                  className="form-control rounded-pill"
+                  className="form-control input rounded-pill"
                   id="employeeRole"
                   placeholder="EMPLOYEE ROLE"
                   autoComplete="off"
@@ -204,7 +204,7 @@ const EmployForm = ({ isEdit }) => {
                <div className="d-flex">
                <input
                   type= {showPassword ? "text" : "password"}
-                  className="form-control rounded-pill"
+                  className="form-control input rounded-pill"
                   id="password"
                   placeholder="PASSWORD"
                   autoComplete="off"
