@@ -1,5 +1,5 @@
 body{
-  background: #f5f5f5 ;
+  background: none ;
   scroll-behavior: smooth;
 overflow: none;
 }
@@ -21,16 +21,25 @@ overflow: none;
     color: white;
 }
 
-ul>li :hover {
-    background-color: rgb(154, 147, 147);
-    align-items: start;
-}
-li span:hover {
-   background: none !important
+ul>li a, ul>li button{
+  font-weight: 600 !important;
+  background: none !important;
 }
 
-ul>li button :hover {
-    background:none !important
+ul>li :hover {
+    background-color: rgb(255, 255, 255) !important;
+    align-items: start;
+    color: black !important;
+}
+li span:hover {
+   background: none !important;
+   color: black !important;
+
+}
+
+ul>li button:hover {
+    color: black;
+
 }
 
 
@@ -52,53 +61,57 @@ body{
 
 
 .card {
-  background: #E0C9CB;
+  backdrop-filter: blur(25px);
   transition: transform 0.3s ease, box-shadow 0.3s ease; 
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  border-radius: 10px;
-  }
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.15); 
   
-  .card:hover {
-    transform: scale(1.05); 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.15); 
+}
+
+.card:hover {
+  transform: scale(1.0); 
+  box-shadow: 0 25px 45px rgba(0,0,0,0.25);
     cursor: pointer;
 }
 
 
   
   .span:hover  {
-    color: white;
     z-index: 1;
   }
 
   .add{
     border-radius: 20px;
-
+    
   }
   .addedit{
+    border: none !important;
+    background: rgba(255, 255, 255, 0.7);
     gap: 7px;
+    box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.3);
   }
   .addedit:hover {
-    background-color: #0d6efd; 
-    color: white !important; 
-    border: #0d6efd
+    background-color: none !important; 
   }
   
   .addedit:hover svg {
-    fill: white !important; 
   }
   
 
    .addedit{
-    background-color: white;
+  
     color: rgb(39, 38, 38) !important;
     font-weight: 600;
-border: none !important;
+
   }
   
   .addedit:hover{
-    background-color: rgb(39, 38, 38) ;
-    color: white;
+  background: rgba(255, 255, 255, 0.7) !important;
+    color: rgb(39, 38, 38) !important;
+    box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.5);
+
     display: block;
   }
 
@@ -128,8 +141,15 @@ border: none !important;
   }
 
   .sidebar{
+  position: fixed;
     text-transform: uppercase;
+    backdrop-filter: blur(11px);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 2px -6px 23px 5px;
+    
   }
+
+
+
 
   .btn-info{
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -157,8 +177,19 @@ border: none !important;
     outline: none !important
    }
 
+   .empform{
+    background: url('./Images/employformbg.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #fff;
+    padding-left: 200px;
+
+   }
+
   .forms{
-    background: #E0C9CB;
+    /* background: #E0C9CB; */
 
     backdrop-filter: blur(25px);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -167,6 +198,29 @@ border: none !important;
   }
 .form-control{
       box-shadow: none;
+}
+
+
+
+.form-control::placeholder {
+
+
+}
+
+
+.form-control .input{
+  height: 45px;
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    color: #fff;
+    padding: 0 42px 0 10px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.form-control:focus{
+  outline: none !important;
 }
 
   input:focus{
@@ -261,9 +315,7 @@ border: none;
   transform: translateX(-50%);
 }
 
-.custom-toast-body {
-  /* Add custom styles for the toast body if needed */
-}
+
 
 
 @media (max-width: 752px) {
@@ -275,8 +327,57 @@ border: none;
     width: auto;
   } */
 }
+@media (max-width: 576px) {
+  .emplist{
+    padding-left: 77px !important;
+    }
+  .empform{
+    padding-left: 54px !important;
+    }
+}
 
-
+@media (min-width: 768px){
+  .sidebar{
+    width: auto;
+  }
+}
 
 
  
+.empform{
+}
+
+.emplist{
+  background: url('./Images/employlistbg.png');
+  background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #fff;
+    padding-left:220px;
+}
+
+img {
+  height: 150px;
+  width: 156px;
+  border: 5px solid transparent;
+    outline: 3px dashed rgba(255,255,255,0.25);
+}
+
+
+.search{
+  background: rgba(255, 255, 255, 0.7);
+ border: none;
+ border-radius: 10px;
+ color: black;
+}
+
+ #submit{
+  background: rgba(37, 31, 31, 0.7) !important;
+  border-radius: none !important;
+  color: white !important;
+}
+
+#submit::placeholder{
+  color: white;
+}

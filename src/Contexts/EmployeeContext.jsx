@@ -12,8 +12,6 @@ const EmployeeProvider = (props) => {
   
   useEffect(() => {   
     const storedEmployees = JSON.parse(localStorage.getItem('employees'));
-    console.log(employeelist);
-    console.log(storedEmployees);
     
     if (Array.isArray(storedEmployees) && storedEmployees.length > 0) {
       setEmployees(storedEmployees);

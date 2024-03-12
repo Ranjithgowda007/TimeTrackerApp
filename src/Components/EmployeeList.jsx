@@ -6,21 +6,14 @@ import { AuthContext } from "../Contexts/LoginContext";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { PROFILE_URL } from "./Data/Constants";
 
 const EmployeeList = () => {
   const navigate = useNavigate();
   const { employees, setEmployees, isUpdated, setIsUpdated } = useContext(EmployeeContext);
   const { login } = useContext(AuthContext);
   const location = useLocation();
-  console.log(employees)
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      toast.success("Logged in successfully");
-    }
-  }, [isLoggedIn]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleAddEmployee = () => {
     navigate("/employlist/addemploy");
@@ -49,62 +42,84 @@ const EmployeeList = () => {
     navigate(`/employlist/edit/${employeeId}`);
   };
 
+  const filteredEmployees = employees.filter(employee =>
+    employee.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div className="container login">
-      <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3 px-4 pt-3 py-3">
-        <h1>EMPLOYEE LIST</h1>
-        <button
-          className="btn btn-info add fs-5 rounded-pill fw-semibold fst-italic"
-          onClick={handleAddEmployee}
-        >
-          <span>Add Employee</span>
-        </button>
+    <div className="container-fluid login emplist h-100">
+      <div className="row align-items-center mb-4 px-5">
+        <h1 className="text-center mt-3">EMPLOYEE LIST</h1>
+
+        <div className="col-sm-12 col-md-6 col-lg-6 col-12 d-flex justify-content-center justify-content-lg-start my-3">
+          <input
+            type="text"
+            className="form-control me-2 w-auto py-2 pe-4" id="submit"
+            placeholder="Search by name"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          
+        </div>
+        <div className="col-sm-12 col-md-6 col-lg-6 col-12 d-flex justify-content-center justify-content-lg-end">
+          <button
+            className="btn btn-info add fs-5 rounded-pill fw-semibold fst-italic"
+            onClick={handleAddEmployee}
+          >
+            <span>Add Employee</span>
+          </button>
+        </div>
       </div>
+
       <div className="row justify-content-center px-sm-4 px-md-4 px-lg-4 px-1">
-        {employees.length === 0 ? (
+        {filteredEmployees.length === 0 ? (
           <div className="col-12 text-center fs-2 text-dark">
             No employees present
           </div>
         ) : (
-          employees.map((employee, index) => (
-            <div key={index} className="col-lg-4 col-md-6 col-sm-12 mb-3">
-              <div
-                className="card card-smaller mx-1"
-                style={{ height: "100%" }}
-                id={index}
-              >
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title">{employee.name}</h5>
-                  <hr className="mx-0 my-1" />
-                  <p className="card-text">
-                    <strong>ROLE:</strong> {employee.employee_role}
-                  </p>
-                  <p className="card-text">
-                    <strong>JOIN DATE:</strong> {employee.joining_date}
-                  </p>
-                  <p className="card-text">
-                    <strong>EMPLOYEE ID:</strong> {employee.employee_Id}
-                  </p>
-                  <div className="mt-auto d-flex justify-content-lg-between justify-content-md-between justify-content-between align-items-center">
-                    <button
-                      className="d-flex justify-content-between align-items-center btn btn-outline-dark position-relative btn-sm text-primary border-2 addedit"
-                      onClick={() => handleEditEmployee(employee.employee_Id)}
-                    >
-                      <span className="d-md-inline d-lg-inline">EDIT</span>{" "}
-                      <FaEdit className="ml-2" />
-                    </button>
-                    <button
-                      className="d-flex justify-content-between align-items-center btn btn-outline-dark position-relative btn-sm border-2 rounded-pill addedit text-primary"
-                      onClick={() => handleDeleteEmployee(employee.employee_Id, index)}
-                    >
-                      <span className="d-md-inline d-lg-inline">DELETE</span>{" "}
-                      <FaTrash className="ml-2" />
-                    </button>
+          <>
+            {employees.map((employee, index) => (
+              <div key={index} className="col-lg-4 col-md-6 col-sm-12 my-3">
+                <div
+                  className="card card-smaller mx-1"
+                  style={{ height: "100%" }}
+                  id={index}
+                >
+                  <div className="card-body d-flex flex-column text-white text-center">
+                    <img src={PROFILE_URL} alt="" className="d-block m-auto rounded-circle"/>
+                    <hr className="mx-0 my-2 mt-4" />
+                    <h5 className="card-title fs-3">{employee.name}</h5>
+                    <p className="card-text mb-2">
+                      {employee.employee_role}
+                    </p>
+                    <p className="card-text mb-2">
+                      employee Id:  {employee.employee_Id}
+                    </p>
+                    <p className="card-text mb-3">
+                     Joined on {employee.joining_date}
+                    </p>
+                    <div className="mt-auto d-flex justify-content-lg-between justify-content-md-between justify-content-between align-items-center">
+                      <button
+                        className="d-flex justify-content-between align-items-center btn btn-outline-dark position-relative btn-sm text-primary border-2 addedit"
+                        onClick={() => handleEditEmployee(employee.employee_Id)}
+                      >
+                        <span className="d-md-inline d-lg-inline">EDIT</span>{" "}
+                        <FaEdit className="ml-2" />
+                      </button>
+                      <button
+                        className="d-flex justify-content-between align-items-center btn btn-outline-dark position-relative btn-sm border-2 rounded-pill addedit text-primary"
+                        onClick={() => handleDeleteEmployee(employee.employee_Id)}
+                      >
+                        <span className="d-md-inline d-lg-inline">DELETE</span>{" "}
+                        <FaTrash className="ml-2" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))
+            ))}
+
+          </>
         )}
       </div>
     </div>
