@@ -12,6 +12,8 @@ const EmployForm = ({ isEdit }) => {
   const textInput = useRef(null);
   const [onfocused, setOnfocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null); // State to store selected image
+
 
   const [employee, setEmployee] = useState({
     name: "",
@@ -27,6 +29,9 @@ const EmployForm = ({ isEdit }) => {
     value.length ? setOnfocused(true) : setOnfocused(false);
   };
 
+  const handleImageChange = (e) => {
+    setSelectedImage(e.target.files[0]);
+  };
   useEffect(() => {
     if (isEdit) {
       const employeeToEdit = employees.find((emp) => emp.employee_Id === id);
@@ -117,13 +122,14 @@ const EmployForm = ({ isEdit }) => {
                 <input
                   ref={textInput}
                   type="text"
-                  className="form-control input rounded-pill"
+                  className="form-control border input rounded-pill"
                   id="inputName"
                   placeholder="EMPLOYEE NAME"
                   value={employee.name}
                   onChange={(e) =>
                     setEmployee({ ...employee, name: e.target.value })
                   }
+                  autoComplete="off"
                 />
               </div>
               <div className=" my-3">
@@ -132,7 +138,7 @@ const EmployForm = ({ isEdit }) => {
                 </label>
                 <input
                   type="email"
-                  className="form-control input rounded-pill"
+                  className="form-control border input rounded-pill"
                   id="inputEmail4"
                   placeholder="COMPANY EMAIL ID"
                   autoComplete="off"
@@ -142,13 +148,14 @@ const EmployForm = ({ isEdit }) => {
                   }
                 />
               </div>
+             
               <div className="col-12 my-3">
                 <label htmlFor="employeeid" className="form-label">
                   Employee Id
                 </label>
                 <input
                   type="text"
-                  className="form-control input rounded-pill"
+                  className="form-control border input rounded-pill"
                   id="employeeid"
                   placeholder="EMPLOY ID"
                   autoComplete="off"
@@ -158,6 +165,16 @@ const EmployForm = ({ isEdit }) => {
                   }
                 />
               </div>
+              <div className="col-12 my-3 ">
+              <label htmlFor="employeeImage" className="form-label">
+Profile Image                </label>
+              <input
+                  type="file"
+                  className="form-control border input rounded-pill"
+                  id="employeeImage"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />              </div>
             </div>
             <div className="col-sm-12 col-md-12 col-lg-6 col-12">
               <div className="col-12 my-3">
@@ -166,7 +183,7 @@ const EmployForm = ({ isEdit }) => {
                 </label>
                 <input
                   type="date"
-                  className="form-control input rounded-pill"
+                  className="form-control border input rounded-pill"
                   id="joiningDate"
                   placeholder="JOINING DATE"
                   autoComplete="off"
@@ -183,7 +200,7 @@ const EmployForm = ({ isEdit }) => {
                 </label>
                 <input
                   type="text"
-                  className="form-control input rounded-pill"
+                  className="form-control border input rounded-pill"
                   id="employeeRole"
                   placeholder="EMPLOYEE ROLE"
                   autoComplete="off"
@@ -204,7 +221,7 @@ const EmployForm = ({ isEdit }) => {
                <div className="d-flex">
                <input
                   type= {showPassword ? "text" : "password"}
-                  className="form-control input rounded-pill"
+                  className="form-control border input rounded-pill"
                   id="password"
                   placeholder="PASSWORD"
                   autoComplete="off"
@@ -223,28 +240,26 @@ const EmployForm = ({ isEdit }) => {
                  )}
                </div>
                     </div>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-6">
-              <button
+                  <div className="d-flex justify-content-around my-3 py-1">
+                  <div>  <button
                 type="submit"
-                className="btn btn-primary w-lg-25 w-md-50 w-sm-50 mt-4 btn1"
+                className="btn btn-primary border w-lg-25 w-md-50 w-sm-50 mt-4 btn1 btn-lg"
               >
                 {isEdit ? "Update" : "Add +"}
-              </button>
-            </div>
-            <div className="col-6 d-flex justify-content-end">
-              <button
+              </button> </div>
+                  <div> <button
                 type="button"
-                className="btn btn-primary w-lg-25 w-md-50 w-sm-50 mt-4 btn1"
+                className="btn btn-primary border w-lg-25 w-md-50 w-sm-50 mt-4 btn1 btn-lg"
                 onClick={() => navigate("/employlist")}
               >
                 Cancel
-              </button>
+              </button></div>
+                  </div>
+
+              </div>
             </div>
           </div>
+         
         </form>
       </div>
     </div>

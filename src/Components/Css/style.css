@@ -5,7 +5,7 @@ overflow: none;
 }
 
 .container{
-  background: #f5f5f5 ;
+  /* background: #f5f5f5 ; */
   width: 100%;
 }
 
@@ -26,9 +26,17 @@ ul>li a, ul>li button{
   background: none !important;
 }
 
-ul>li :hover {
+ul>#l:hover {
     background-color: rgb(255, 255, 255) !important;
     align-items: start;
+    color: black !important;
+}
+#li a:hover {
+    background-color: white !important;
+    color: black !important;
+}
+#li .nav-link:hover {
+    background-color: white !important;
     color: black !important;
 }
 li span:hover {
@@ -36,6 +44,14 @@ li span:hover {
    color: black !important;
 
 }
+.bi-kanban {
+  color: inherit !important;
+}
+
+li i:hover{
+  color: black;
+}
+
 
 ul>li button:hover {
     color: black;
@@ -178,7 +194,7 @@ body{
    }
 
    .empform{
-    background: url('./Images/employformbg.jpg');
+    background: url('../Images/employformbg.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -199,14 +215,6 @@ body{
 .form-control{
       box-shadow: none;
 }
-
-
-
-.form-control::placeholder {
-
-
-}
-
 
 .form-control .input{
   height: 45px;
@@ -233,14 +241,15 @@ body{
 }
   
 .btn1{
-  background-color: rgb(39, 38, 38) !important;
-border: none;
+  background-color: #d7d7d7;
+background-image: linear-gradient(147deg, #d7d7d7 0%, #353535 74%);
+
 transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 .btn1:hover{
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   background-color: rgb(50, 49, 49) !important;
-  transform: scale(1.05);
+  /* transform: scale(1.01); */
 border: none;
 }
 
@@ -334,6 +343,12 @@ border: none;
   .empform{
     padding-left: 54px !important;
     }
+    .project{
+      padding-left: 54px !important;
+    }
+    .project-form{
+      padding-left: 50px !important;
+    }
 }
 
 @media (min-width: 768px){
@@ -348,7 +363,7 @@ border: none;
 }
 
 .emplist{
-  background: url('./Images/employlistbg.png');
+  background: url('../Images/employlistbg.png');
   background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -380,4 +395,8 @@ img {
 
 #submit::placeholder{
   color: white;
+}
+
+input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
 }

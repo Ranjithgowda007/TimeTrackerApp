@@ -29,11 +29,20 @@ const EmployeeList = () => {
       confirmButtonText: 'Delete',
     }).then((result) => {
       if (result.isConfirmed) {
+        const deletedEmployee = employees.find(emp => emp.employee_Id === employeeId);
         const updatedEmployees = employees.filter(emp => emp.employee_Id !== employeeId);
         setEmployees(updatedEmployees);
         localStorage.setItem("employees", JSON.stringify(updatedEmployees));
         setIsUpdated(true);
-        toast.success("Employee deleted successfully");
+        toast.success("Employee moved to Trash successfully");
+
+        // Store the original index of the deleted employee in localStorage
+        const trashList = JSON.parse(localStorage.getItem('trash')) || [];
+        trashList.push({ ...deletedEmployee, originalIndex: index });
+        localStorage.setItem('trash', JSON.stringify(trashList));
+
+        // Navigate to the trash page
+        navigate("/employlist/trash");
       }
     });
   };
@@ -54,10 +63,12 @@ const EmployeeList = () => {
         <div className="col-sm-12 col-md-6 col-lg-6 col-12 d-flex justify-content-center justify-content-lg-start my-3">
           <input
             type="text"
-            className="form-control me-2 w-auto py-2 pe-4" id="submit"
+            className="form-control border me-2 w-auto py-2 pe-4" id="submit"
             placeholder="Search by name"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            autoComplete="off"
+            style={{boxShadow : "inherit"}}
           />
           
         </div>
@@ -78,7 +89,7 @@ const EmployeeList = () => {
           </div>
         ) : (
           <>
-            {employees.map((employee, index) => (
+            {filteredEmployees.map((employee, index) => (
               <div key={index} className="col-lg-4 col-md-6 col-sm-12 my-3">
                 <div
                   className="card card-smaller mx-1"
