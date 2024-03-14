@@ -55,7 +55,7 @@ const Navbar = () => {
                   className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
                   id="menu"
                 >
-                  <li className="w-100 mx-1 my-2">
+                  <li className="w-100 mx-1 my-2" id="li">
                     <Link
                       to="/dashboard"
                       className="nav-link text-white px-0 align-middle"
@@ -66,7 +66,8 @@ const Navbar = () => {
                       </span>
                     </Link>
                   </li>
-                  <li className="w-100 mx-1 my-2">
+                  <li className="w-100 mx-1 my-2" id="li">
+                    
                     <Link
                       to="/employlist"
                       className="nav-link px-0 align-middle text-white"
@@ -77,7 +78,18 @@ const Navbar = () => {
                       </span>
                     </Link>
                   </li>
-                  <li className="w-100 mx-1 my-2">
+                  <li className="w-100 mx-1 my-2" id="li">
+                    <Link
+                      to="/projects"
+                      className="nav-link px-0 align-middle text-white"
+                    >
+                      <i className="fs-4 bi bi-kanban ms-2 position-static"></i>
+                      <span className="ms-2 d-none d-sm-inline">
+                        Projects  
+                      </span>
+                    </Link>
+                  </li>
+                  <li className="w-100 mx-1 my-2" id="li">
                     <button
                       className="nav-link px-0 w-100 text-white  d-flex align-items-center"
                       onClick={handleLogout}
